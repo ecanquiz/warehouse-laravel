@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  php_store:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: store_php
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/html/
+    volumes:
+      - ./:/var/www/html/
+      - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+    networks:
+      - store-network
+  nginx_store:
+    depends_on:
+      - php_store
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: store_nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    networks:
+      - store-network      
+  pgsql_store:
+    container_name: store_pgsql
+    image: postgres:13
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - "./postgresql:/var/lib/postgresql/data"
+    networks:
+      - store-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+
+networks:
+  store-network:
+    driver: bridge

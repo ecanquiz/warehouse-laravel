@@ -1,0 +1,109 @@
+https://laravel.com/docs/11.x/installation#creating-a-laravel-project
+composer create-project laravel/laravel example-app
+
+https://laravel.com/docs/11.x/installation#environment-based-configuration
+.env
+
+https://laravel.com/docs/11.x/installation#databases-and-migrations
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=pgsql
+DB_HOST=172.18.0.2
+DB_PORT=5432
+DB_DATABASE=store
+DB_USERNAME=postgres
+DB_PASSWORD=secret
+
+SANCTUM_STATEFUL_DOMAINS=localhost:5173
+SESSION_DOMAIN=localhost
+SPA_URL=http://localhost:5173
+
+DO_SPACES_PUBLIC=http://localhost:8000/storage/
+
+--
+https://laravel.com/docs/11.x/sanctum#installation
+https://laravel.com/docs/11.x/sanctum#sanctum-middleware
+https://laravel.com/docs/11.x/sanctum#cors-and-cookies
+---
+https://laravel.com/docs/11.x/fortify#installation
+https://laravel.com/docs/11.x/fortify#fortify-features
+https://laravel.com/docs/11.x/fortify#disabling-views
+config -> fortify
+'home' => env('SPA_URL') . '/dashboard',
+config -> session
+'domain' => env('SESSION_DOMAIN'),
+
+--------------
+/home/ernesto/devenv/store/laravel10/app/Http/Middleware/RedirectIfAuthenticated.php
+        $middleware->alias(['json_guest'=> \App\Http\Middleware\RedirectIfAuthenticated::class]);
+        $middleware->appendToGroup('api', [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
+
+use App\Providers\RouteServiceProvider;
+app\Http\Middleware\Authenticate.php
+AuthServiceProvider
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthMenuController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TokenController;
+use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RoleController;
+Request+Resources+Services+Validator
+/app/Exceptions+/app/Repositories
+
+composer require nwidart/laravel-modules
+
+///
+"autoload": {
+    "psr-4": {
+        "Modules\\Blog\\": "app/",
+        "Modules\\Blog\\Database\\Factories\\": "database/factories/",
+        "Modules\\Blog\\Database\\Seeders\\": "database/seeders/"
+    }
+},
+"autoload-dev": {
+    "psr-4": {
+        "Modules\\Blog\\Tests\\": "tests/"
+    }
+}
+///
+
+
+
+        'pgsql_common' => [
+            'driver' => 'pgsql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_COMMON', '127.0.0.1'),
+            'port' => env('DB_PORT_COMMON', '5432'),
+            'database' => env('DB_DATABASE_COMMON', 'forge'),
+            'username' => env('DB_USERNAME_COMMON', 'forge'),
+            'password' => env('DB_PASSWORD_COMMON', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'pgsql_product' => [
+            'driver' => 'pgsql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_PRODUCT', '127.0.0.1'),
+            'port' => env('DB_PORT_PRODUCT', '5432'),
+            'database' => env('DB_DATABASE_PRODUCT', 'forge'),
+            'username' => env('DB_USERNAME_PRODUCT', 'forge'),
+            'password' => env('DB_PASSWORD_PRODUCT', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+php artisan module:migrate-refresh
+php artisan module:seed
+
+php artisan migrate
