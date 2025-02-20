@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Store\Enums;
+namespace App\Enums;
 
 enum MovementTypeEnum: string
 {

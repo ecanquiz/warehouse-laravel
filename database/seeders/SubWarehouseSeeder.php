@@ -18,9 +18,9 @@ class SubWarehouseSeeder extends Seeder
         $uuid2=(string)Str::uuid();
         $uuid3=(string)Str::uuid();
         
-        DB::statement("INSERT INTO public.sub_warehouses(uuid, name, description, created_at, updated_at) VALUES ('$uuid1','Sub Almacén Uno', 'Sub Almacén Uno Sub Almacén Uno Sub Almacén Uno', now(), now())");
-        DB::statement("INSERT INTO public.sub_warehouses(uuid, name, description, created_at, updated_at) VALUES ('$uuid2','Sub Almacén Dos', 'Sub Almacén Dos Sub Almacén Dos Sub Almacén Dos', now(), now())");
-        DB::statement("INSERT INTO public.sub_warehouses(uuid, name, description, created_at, updated_at) VALUES ('$uuid3','Sub Almacén Tres', 'Sub Almacén Tres Sub Almacén Tres Sub Almacén Tres', now(), now())");
+        DB::statement("INSERT INTO public.sub_warehouses(uuid, name, description, created_at, updated_at) VALUES ('$uuid1','Almacén Uno', 'Almacén Uno, Almacén Uno, Almacén Uno', now(), now())");
+        DB::statement("INSERT INTO public.sub_warehouses(uuid, name, description, created_at, updated_at) VALUES ('$uuid2','Almacén Dos', 'Almacén Dos, Almacén Dos, Almacén Dos', now(), now())");
+        DB::statement("INSERT INTO public.sub_warehouses(uuid, name, description, created_at, updated_at) VALUES ('$uuid3','Almacén Tres', 'Almacén Tres, Almacén Tres,Almacén Tres', now(), now())");
 
     }
 }

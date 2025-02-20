@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Store\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\{Request, JsonResponse};
 use Illuminate\Routing\Controller;
-use Modules\Store\Entities\Movement;
-use Modules\Store\Http\Resources\MovementResource;
-use Modules\Store\Http\Services\Movement\{ IndexMovementService, StoreMovementService };
-// use Modules\Store\Http\Requests\Movement\{ StoreMovementRequest, UpdateMovementRequest};
+use App\Models\Movement;
+use App\Http\Resources\MovementResource;
+use App\Http\Services\Movement\{ IndexMovementService, StoreMovementService };
+// use App\Http\Requests\Movement\{ StoreMovementRequest, UpdateMovementRequest};
 
 class MovementController extends Controller
 {

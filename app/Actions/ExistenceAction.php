@@ -22,7 +22,9 @@ class ExistenceAction
             $query->where(function ($query) use ($search) {
                 $query
                 ->where(\DB::raw('lower(int_cod)') , "like", "%$search%")
-                ->orWhere(\DB::raw('lower(name)') , "like", "%$search%");
+                ->orWhere(\DB::raw('lower(name)') , "like", "%$search%")
+                ->orWhere(\DB::raw('lower(warehouse)') , "like", "%$search%");
+
             });
         }
 

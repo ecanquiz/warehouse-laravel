@@ -21,11 +21,11 @@ class CreateMovementsTable extends Migration
             $table->dateTime('date_time',0)->useCurrent();
             $table->string('subject', 40);
             $table->text('description');
-            $table->text('observation');
+            $table->text('observation')->nullable();
             $table->date('close')->nullable();
             $table->integer('support_type_id');
             $table->string('support_number', 10);
-            $table->dateTime('support_date',0);           
+            $table->dateTime('support_date',0);      
             $table->integer('user_insert_id')->default(1);
             $table->integer('user_update_id')->default(1);
             $table->integer('user_edit_id')->default(1);

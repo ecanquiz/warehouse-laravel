@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Store\Http\Services\DailyClosing;
+namespace App\Http\Services\DailyClosing;
 
 use Illuminate\Http\{
     Request,
     JsonResponse
 };
-use Modules\Store\Entities\DailyClosing;
+use App\Models\DailyClosing;
 
 class IndexDailyClosingService
 {

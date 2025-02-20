@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Store\Http\Services\SubWarehouse;
+namespace App\Http\Services\SubWarehouse;
 
 use Illuminate\Http\{
     Request,
     JsonResponse
 };
-use Modules\Store\Entities\SubWarehouse;
+use App\Models\SubWarehouse;
 
 class IndexSubWarehouseService
 {

@@ -1,15 +1,13 @@
 <?php
 
-namespace Modules\Store\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\{Request, JsonResponse};
 use Illuminate\Routing\Controller;
 use DB;
-//use Modules\Store\Entities\Movement;
-//use Modules\Store\Http\Resources\MovementResource;
-use Modules\Store\Http\Services\DailyClosing\{ IndexDailyClosingService };
-// use Modules\Store\Http\Requests\Movement\{ StoreMovementRequest, UpdateMovementRequest};
+use App\Http\Services\DailyClosing\{ IndexDailyClosingService };
+// use App\Http\Requests\Movement\{ StoreMovementRequest, UpdateMovementRequest};
 
 class DailyClosingController extends Controller
 {
@@ -23,7 +21,7 @@ class DailyClosingController extends Controller
         $query = DB::table('close_days')
         ->selectRaw(
             'close,
-            article_id,
+            close_days.article_id,
             articles.int_cod,
             articles.name,
             sum(accumulated) as accumulated,
@@ -32,9 +30,9 @@ class DailyClosingController extends Controller
             sum(quantity_reverse_input) as quantity_reverse_input, 
             sum(quantity_reverse_output) as quantity_reverse_output'
         )
-        ->join('articles', 'article_id', '=', 'articles.id')
+        ->join('articles', 'close_days.article_id', '=', 'articles.id')
         ->where('close', $request->close)
-        ->groupBy('close', 'article_id', 'articles.int_cod', 'articles.name')
+        ->groupBy('close', 'close_days.article_id', 'articles.int_cod', 'articles.name')
         ->get();
 
         return response()->json($query);
@@ -45,7 +43,7 @@ class DailyClosingController extends Controller
         $query = DB::table('view_closure_pre_insert')
         ->selectRaw(
             'date_time,
-            article_id,
+            view_closure_pre_insert.article_id,
             articles.int_cod,
             articles.name,
             quantity_input,
@@ -53,7 +51,7 @@ class DailyClosingController extends Controller
             quantity_reverse_input,
             quantity_reverse_output'
         )
-        ->join('articles', 'article_id', '=', 'articles.id')
+        ->join('articles', 'view_closure_pre_insert.article_id', '=', 'articles.id')
         ->get();
 
         return response()->json($query);

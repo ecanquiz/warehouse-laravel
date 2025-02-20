@@ -1,21 +1,21 @@
 <?php
 
-namespace Modules\Store\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\{Request, JsonResponse};
 use Illuminate\Routing\Controller;
-use Modules\Store\Http\Resources\SubWarehouseResource;
-use Modules\Store\Http\Requests\SubWarehouse\{
+use App\Http\Resources\SubWarehouseResource;
+use App\Http\Requests\SubWarehouse\{
     StoreSubWarehouseRequest,
     UpdateSubWarehouseRequest
 };
-use Modules\Store\Http\Services\SubWarehouse\{
+use App\Http\Services\SubWarehouse\{
     StoreSubWarehouseService,
     IndexSubWarehouseService,
     UpdateSubWarehouseService
 };
-use Modules\Store\Entities\SubWarehouse;
+use App\Models\SubWarehouse;
 
 class SubWarehouseController extends Controller
 {

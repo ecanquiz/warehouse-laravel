@@ -95,47 +95,31 @@ class MenuSeeder extends Seeder
             "sort" => 1
         ]);
 
-       Menu::create([ // id 11
+        Menu::create([ // id 11
             "title" => "Admin",
             "menu_id" => null,
             "path" => "#",
             "icon" => "printer",
             "sort" => 4
         ]);
-        
+
         Menu::create([ // id 12
+            "title" => "Almacenes",
+            "menu_id" => 11,
+            "path" => "sub_warehouses",
+            "icon" => "menus.svg",
+            "sort" => 1
+        ]);
+        
+        Menu::create([ // id 13
             "title" => "Artículos",
             "menu_id" => 11,
             "path" => "articles",
             "icon" => "articles.svg",
             "sort" => 2
-        ]);
+        ]);        
         
-        Menu::create([ // id 13
-            "title" => "Categorías",
-            "menu_id" => 11,
-            "path" => "categories",
-            "icon" => "categories.svg",
-            "sort" => 3
-        ]);
-
         Menu::create([ // id 14
-            "title" => "Marcas",
-            "menu_id" => 11,
-            "path" => "marks",
-            "icon" => "mark.svg",
-            "sort" => 4
-        ]);
-
-        Menu::create([ // id 15
-            "title" => "Productos",
-            "menu_id" => 11,
-            "path" => "products",
-            "icon" => "products.svg",
-            "sort" => 5
-        ]);
-        
-        Menu::create([ // id 16
             "title" => "Usuarios",
             "menu_id" => 11,
             "path" => "users",
@@ -143,7 +127,7 @@ class MenuSeeder extends Seeder
             "sort" => 7
         ]);
 
-        Menu::create([ // id 17
+        Menu::create([ // id 15
             "title" => "Roles",
             "menu_id" => 11,
             "path" => "roles",
@@ -151,18 +135,10 @@ class MenuSeeder extends Seeder
             "sort" => 6
         ]);
 
-        Menu::create([ // id 18
+        Menu::create([ // id 16
             "title" => "Menus",
             "menu_id" => 11,
             "path" => "menus",
-            "icon" => "menus.svg",
-            "sort" => 1
-        ]);
-
-        Menu::create([ // id 19
-            "title" => "Sub Almacenes",
-            "menu_id" => 11,
-            "path" => "sub_warehouses",
             "icon" => "menus.svg",
             "sort" => 1
         ]);
