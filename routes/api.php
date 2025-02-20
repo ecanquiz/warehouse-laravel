@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Actions\ExistenceAction;
 use App\Http\Controllers\{
+    ArticleController,
     AuthController,
     AuthMenuController,
     UserController,
@@ -85,7 +86,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::get('/movement_details_by_number/{supportNumber}/{typeId}', [MovementDetailController::class, 'getAllByNumber']);
 
-
     Route::prefix('daily-closings')->group(function () { 
         Route::get('/', [DailyClosingController::class, 'index']);
         Route::get('/pre', [DailyClosingController::class, 'getPreDailyClosing']);
@@ -101,6 +101,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}', [SubWarehouseController::class,'destroy']);
     });
     Route::get('/sub_warehouses-help', [SubWarehouseController::class, 'help']);
+    Route::get('/articles-search', [ArticleController::class,'search']);
 });
 
 Route::prefix('error')->group(function () {

@@ -19,6 +19,7 @@ CREATE OR REPLACE VIEW public.view_stocks_by_accumulated_plus_unclosed_movements
  SELECT a.id,
     a.int_cod,
     a.name,
+	d.name as warehouse,
     COALESCE(b.total, 0::bigint) AS accumulated,
     COALESCE(c.inputs, 0::numeric) AS inputs,
     COALESCE(c.outputs, 0::numeric) AS outputs,
@@ -30,6 +31,8 @@ CREATE OR REPLACE VIEW public.view_stocks_by_accumulated_plus_unclosed_movements
    FROM articles a
      LEFT JOIN view_total_articles_by_daily_closing b ON b.article_id = a.id
      LEFT JOIN view_articles_sum_by_unclosed_movements c ON c.article_id = a.id
+     LEFT JOIN sub_warehouses d ON d.uuid = a.sub_warehouse_uuid
+
   ORDER BY a.id;
 
 ALTER TABLE public.view_stocks_by_accumulated_plus_unclosed_movements

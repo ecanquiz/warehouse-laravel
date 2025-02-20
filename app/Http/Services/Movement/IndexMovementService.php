@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Store\Http\Services\Movement;
+namespace App\Http\Services\Movement;
 
 use Illuminate\Http\{
     Request,
     JsonResponse
 };
-use Modules\Article\Entities\Article;
-use Modules\Store\Entities\Movement;
+// use Modules\Article\Entities\Article;
+use App\Models\Movement;
 
 class IndexMovementService
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Modules\Store\Http\Services\Movement;
+namespace App\Http\Services\Movement;
 
 use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Modules\Store\Enums\MovementTypeEnum;
-use Modules\Store\Entities\{ Movement, MovementDetail };
-//use Modules\Store\Http\Requests\Movement\StoreMovementRequest;
+use App\Enums\MovementTypeEnum;
+use App\Models\{ Movement, MovementDetail };
+//use App\Http\Requests\Movement\StoreMovementRequest;
 
 //https://stackoverflow.com/questions/46682530/validate-uuid-with-laravel-validation
 // use Ramsey\Uuid\Uuid as UuidValidator; // No more needed here

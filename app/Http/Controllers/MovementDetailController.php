@@ -1,13 +1,12 @@
 <?php
 
-namespace Modules\Store\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Collection;
-use Modules\Store\Entities\Movement;
-use Modules\Store\Entities\MovementDetail;
+use App\Models\{Movement, MovementDetail};
 //use Modules\Article\Repositories\ArticleDetailRepository;
 //use Modules\Article\Http\Requests\ArticleDetail\{
 //    StoreArticleDetailRequest,

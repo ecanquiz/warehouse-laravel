@@ -1,9 +1,9 @@
 <?php
-namespace Modules\Store\Http\Services\SubWarehouse;
+namespace App\Http\Services\SubWarehouse;
 
 use Illuminate\Http\JsonResponse;
-use Modules\Store\Http\Requests\SubWarehouse\StoreSubWarehouseRequest;
-use Modules\Store\Entities\SubWarehouse;
+use App\Http\Requests\SubWarehouse\StoreSubWarehouseRequest;
+use App\Models\SubWarehouse;
 use Illuminate\Support\Str;
 
 
