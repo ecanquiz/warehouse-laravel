@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class SubWarehouse extends Model
+class Warehouse extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -26,6 +26,6 @@ class SubWarehouse extends Model
         
     protected static function newFactory()
     {
-        return \Database\Factories\SubWarehouseFactory::new();
+    //    return \Database\Factories\WarehouseFactory::new();
     }
 }

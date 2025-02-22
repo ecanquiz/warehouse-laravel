@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Services\SubWarehouse;
+namespace App\Http\Services\Warehouse;
 
 use Illuminate\Http\{
     Request,
     JsonResponse
 };
-use App\Models\SubWarehouse;
+use App\Models\Warehouse;
 
-class IndexSubWarehouseService
+class IndexWarehouseService
 {
 
   /**
@@ -17,7 +17,7 @@ class IndexSubWarehouseService
   static public function execute(Request $request): JsonResponse
   {
       /* Initialize query */
-        $query = SubWarehouse::query();
+        $query = Warehouse::query();
 
         /* search */
         $search = strtolower($request->input("search"));
@@ -39,12 +39,12 @@ class IndexSubWarehouseService
         }
 
         /* get paginated results */
-        $sub_warehouses = $query
+        $warehouses = $query
             ->paginate(5)
             ->appends(request()->query());
             
         return response()->json([
-            "rows" => $sub_warehouses,
+            "rows" => $warehouses,
             "sort" => $request->query("sort"),
             "direction" => $request->query("direction"),
             "search" => $request->query("search")

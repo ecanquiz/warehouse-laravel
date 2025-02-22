@@ -106,7 +106,7 @@ class MenuSeeder extends Seeder
         Menu::create([ // id 12
             "title" => "Almacenes",
             "menu_id" => 11,
-            "path" => "sub_warehouses",
+            "path" => "warehouses",
             "icon" => "menus.svg",
             "sort" => 1
         ]);

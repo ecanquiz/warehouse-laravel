@@ -16,9 +16,9 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->integer('article_id')->nullable()->unsigned();
-            $table->uuid('sub_warehouse_uuid')->nullable()->unsigned();
-            $table->foreign('sub_warehouse_uuid')->references('uuid')->on('sub_warehouses');
-            $table->unique(['sub_warehouse_uuid', 'article_id']);       
+            $table->uuid('warehouse_uuid')->nullable()->unsigned();
+            $table->foreign('warehouse_uuid')->references('uuid')->on('warehouses');
+            $table->unique(['warehouse_uuid', 'article_id']);       
             $table->string('int_cod', 15);
             $table->string('name',50);
             $table->float('price')->default(100);
