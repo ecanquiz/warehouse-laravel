@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{ Movement, SubWarehouse };
+use App\Models\{ Movement, Warehouse };
 
 //use Illuminate\Support\Facades\DB;
 
@@ -19,8 +19,8 @@ class MovementTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $subStores = SubWarehouse::all();
-        $storeUuid = $subStores->first()->uuid;
+        $stores = Warehouse::all();
+        $storeUuid = $stores->first()->uuid;
         $faker = \Faker\Factory::create();
         $today = date("Y-m-d");        
         

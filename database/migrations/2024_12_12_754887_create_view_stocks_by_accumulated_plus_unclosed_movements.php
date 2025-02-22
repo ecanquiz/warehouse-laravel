@@ -31,7 +31,7 @@ CREATE OR REPLACE VIEW public.view_stocks_by_accumulated_plus_unclosed_movements
    FROM articles a
      LEFT JOIN view_total_articles_by_daily_closing b ON b.article_id = a.id
      LEFT JOIN view_articles_sum_by_unclosed_movements c ON c.article_id = a.id
-     LEFT JOIN sub_warehouses d ON d.uuid = a.sub_warehouse_uuid
+     LEFT JOIN warehouses d ON d.uuid = a.warehouse_uuid
 
   ORDER BY a.id;
 

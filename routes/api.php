@@ -15,7 +15,7 @@ use App\Http\Controllers\{
     MovementController,
     MovementDetailController,
     DailyClosingController,
-    SubWarehouseController
+    WarehouseController
 };
 
 
@@ -93,14 +93,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [DailyClosingController::class, 'store']);
     });
 
-    Route::prefix('sub_warehouses')->group(function () {
-        Route::get('/', [SubWarehouseController::class, 'index']);
-        Route::get('/{sub_warehouse}', [SubWarehouseController::class, 'show']);
-        Route::post('/', [SubWarehouseController::class, 'store']);
-        Route::put('/{sub_warehouse}', [SubWarehouseController::class, 'update']);
-        Route::delete('/{id}', [SubWarehouseController::class,'destroy']);
+    Route::prefix('warehouses')->group(function () {
+        Route::get('/', [WarehouseController::class, 'index']);
+        Route::get('/{warehouse}', [WarehouseController::class, 'show']);
+        Route::post('/', [WarehouseController::class, 'store']);
+        Route::put('/{warehouse}', [WarehouseController::class, 'update']);
+        Route::delete('/{id}', [WarehouseController::class,'destroy']);
     });
-    Route::get('/sub_warehouses-help', [SubWarehouseController::class, 'help']);
+    Route::get('/warehouses-help', [WarehouseController::class, 'help']);
     Route::get('/articles-search', [ArticleController::class,'search']);
 });
 

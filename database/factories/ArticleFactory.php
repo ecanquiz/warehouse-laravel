@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 //use Illuminate\Support\Str;
-use App\Models\SubWarehouse;
+use App\Models\Warehouse;
 
 class ArticleFactory extends Factory
 {
@@ -22,12 +22,12 @@ class ArticleFactory extends Factory
      */
     public function definition()
     {
-        $subWarehouse = SubWarehouse::select('uuid')->get();
+        $warehouse = Warehouse::select('uuid')->get();
 
         return [        
             'int_cod' => $this->faker->regexify('[A-Z]{5}[0-9]{10}'),
             'name' => strtoupper($this->faker->word()),
-            'sub_warehouse_uuid' => $subWarehouse->random()->uuid
+            'warehouse_uuid' => $warehouse->random()->uuid
         ];
     }
 }

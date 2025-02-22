@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             MenuSeeder::class,
-            SubWarehouseSeeder::class,
+            WarehouseSeeder::class,
             ArticleSeeder::class,
             MovementTableSeeder::class,
             MovementDetailTableSeeder::class,
