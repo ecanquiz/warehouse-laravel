@@ -64,6 +64,7 @@ class DailyClosingController extends Controller
 
         //try {
             $date = $request->date;
+
             $result = DB::select("select daily_closing(?,?,?)", array($date, $date, 1));
             return response()->json($result);
 
