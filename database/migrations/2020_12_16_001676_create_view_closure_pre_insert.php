@@ -16,7 +16,7 @@ class CreateViewClosurePreInsert extends Migration
         DB::unprepared("
  CREATE VIEW public.view_closure_pre_insert AS
  SELECT a.date_time,
-    a.article_id,
+    a.article_warehouse_id,
         CASE
             WHEN (sum(b.sum) IS NULL) THEN ((0)::bigint)::numeric
             ELSE sum(b.sum)
@@ -33,13 +33,13 @@ class CreateViewClosurePreInsert extends Migration
             WHEN (sum(e.sum) IS NULL) THEN ((0)::bigint)::numeric
             ELSE sum(e.sum)
         END AS quantity_reverse_output
-   FROM ((((public.view_clousure_mov_date_time_article a
-     LEFT JOIN public.view_closure_pre_insert_aux b ON (((a.article_id = b.article_id) AND (b.type_id = 1) AND (a.date_time = b.date_time))))
-     LEFT JOIN public.view_closure_pre_insert_aux c ON (((a.article_id = c.article_id) AND (c.type_id = 2) AND (a.date_time = c.date_time))))
-     LEFT JOIN public.view_closure_pre_insert_aux d ON (((a.article_id = d.article_id) AND (d.type_id = 3) AND (a.date_time = d.date_time))))
-     LEFT JOIN public.view_closure_pre_insert_aux e ON (((a.article_id = e.article_id) AND (e.type_id = 4) AND (a.date_time = e.date_time))))
-  GROUP BY a.date_time, a.article_id
-  ORDER BY a.date_time, a.article_id;
+   FROM ((((public.view_clousure_mov_date_time_article_warehouse a
+     LEFT JOIN public.view_closure_pre_insert_aux b ON (((a.article_warehouse_id = b.article_warehouse_id) AND (b.type_id = 1) AND (a.date_time = b.date_time))))
+     LEFT JOIN public.view_closure_pre_insert_aux c ON (((a.article_warehouse_id = c.article_warehouse_id) AND (c.type_id = 2) AND (a.date_time = c.date_time))))
+     LEFT JOIN public.view_closure_pre_insert_aux d ON (((a.article_warehouse_id = d.article_warehouse_id) AND (d.type_id = 3) AND (a.date_time = d.date_time))))
+     LEFT JOIN public.view_closure_pre_insert_aux e ON (((a.article_warehouse_id = e.article_warehouse_id) AND (e.type_id = 4) AND (a.date_time = e.date_time))))
+  GROUP BY a.date_time, a.article_warehouse_id
+  ORDER BY a.date_time, a.article_warehouse_id;
 
 ALTER TABLE public.view_closure_pre_insert
     OWNER TO postgres;   

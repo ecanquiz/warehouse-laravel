@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 //use Illuminate\Support\Str;
 use App\Models\Warehouse;
 
-class ArticleFactory extends Factory
+class ArticleWarehouseFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = \App\Models\Article::class;
+    protected $model = \App\Models\ArticleWarehouse::class;
 
     /**
      * Define the model's default state.

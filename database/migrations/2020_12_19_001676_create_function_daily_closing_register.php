@@ -19,7 +19,7 @@ CREATE OR REPLACE FUNCTION public.daily_closing_register(i_date date, i_user_id 
     AS $$
 BEGIN
 	INSERT INTO public.close_days(
-		article_id,
+		article_warehouse_id,
         accumulated,
 		quantity_input, 
 		quantity_output, 
@@ -30,8 +30,8 @@ BEGIN
 		close, 
 		id_user_insert		
 	) SELECT 
-	    view_closure_pre_insert.article_id,
-        COALESCE(view_total_articles_by_daily_closing.total, 0::numeric),
+	    view_closure_pre_insert.article_warehouse_id,
+        COALESCE(view_total_article_warehouse_by_daily_closing.total, 0::numeric),
 		quantity_input, 
 		quantity_output,
 		quantity_reverse_input, 
@@ -41,8 +41,8 @@ BEGIN
 		i_date, 
 		i_user_id        
 		FROM view_closure_pre_insert
-		  LEFT JOIN view_total_articles_by_daily_closing
-		    ON view_closure_pre_insert.article_id = view_total_articles_by_daily_closing.article_id
+		  LEFT JOIN view_total_article_warehouse_by_daily_closing
+		    ON view_closure_pre_insert.article_warehouse_id = view_total_article_warehouse_by_daily_closing.article_warehouse_id
 		WHERE date_time::date = i_date;		
 		
 	UPDATE public.movements SET close = now()

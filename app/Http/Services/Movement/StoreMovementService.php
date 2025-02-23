@@ -70,7 +70,7 @@ class StoreMovementService
         $movementDetail = [];
         for ($i = 0; $i < count($dataDetailsValidated); $i++) {
             $movementDetail[$i] = new MovementDetail;
-            $movementDetail[$i]->article_id = $dataDetailsValidated[$i]['id'];
+            $movementDetail[$i]->article_warehouse_id = $dataDetailsValidated[$i]['id'];
             $movementDetail[$i]->quantity = $dataDetailsValidated[$i]['quantity']; 
             $movementDetail[$i]->user_insert_id = Auth::user()->id;
             $movementDetail[$i]->user_update_id = Auth::user()->id;
