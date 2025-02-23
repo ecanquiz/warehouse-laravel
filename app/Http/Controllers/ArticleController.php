@@ -83,10 +83,10 @@ class ArticleController extends Controller
                     articles.stock_max,
                     articles.status,
                     articles.photo,
-                    articles.sub_warehouse_uuid,
-                    sub_warehouses.name as warehouse,
+                    articles.warehouse_uuid,
+                    warehouses.name as warehouse,
                     CASE WHEN view_stock_movement.total IS NULL THEN 0 ELSE view_stock_movement.total END as stock_existence")
-            ->leftjoin("sub_warehouses"  , "articles.sub_warehouse_uuid"  , "=", "sub_warehouses.uuid")
+            ->leftjoin("warehouses"  , "articles.warehouse_uuid"  , "=", "warehouses.uuid")
             ->leftjoin("view_stock_movement"  , "articles.id"  , "=", "view_stock_movement.article_id");
 ;
 
@@ -97,7 +97,7 @@ class ArticleController extends Controller
                 $query
                     ->where  (DB::raw("UPPER(articles.int_cod)"        ), "like", "%$search%")
                     ->orWhere(DB::raw("UPPER(articles.name)"  ), "like", "%$search%")
-                    ->orWhere(DB::raw("UPPER(sub_warehouses.name)"  ), "like", "%$search%");
+                    ->orWhere(DB::raw("UPPER(warehouses.name)"  ), "like", "%$search%");
             });
         }
 
