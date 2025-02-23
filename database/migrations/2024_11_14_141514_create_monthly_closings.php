@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('monthly_closings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_article');
+            $table->integer('id_article_warehouse');
             $table->integer('incoming_quantity');
             $table->integer('outgoing_quantity');
             $table->integer('incoming_quantity_reversed');

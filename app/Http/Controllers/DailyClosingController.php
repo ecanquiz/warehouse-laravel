@@ -21,18 +21,18 @@ class DailyClosingController extends Controller
         $query = DB::table('close_days')
         ->selectRaw(
             'close,
-            close_days.article_id,
-            articles.int_cod,
-            articles.name,
+            close_days.article_warehouse_id,
+            article_warehouse.int_cod,
+            article_warehouse.name,
             sum(accumulated) as accumulated,
             sum(quantity_input) as quantity_input, 
             sum(quantity_output) as quantity_output, 
             sum(quantity_reverse_input) as quantity_reverse_input, 
             sum(quantity_reverse_output) as quantity_reverse_output'
         )
-        ->join('articles', 'close_days.article_id', '=', 'articles.id')
+        ->join('article_warehouse', 'close_days.article_warehouse_id', '=', 'article_warehouse.id')
         ->where('close', $request->close)
-        ->groupBy('close', 'close_days.article_id', 'articles.int_cod', 'articles.name')
+        ->groupBy('close', 'close_days.article_warehouse_id', 'article_warehouse.int_cod', 'article_warehouse.name')
         ->get();
 
         return response()->json($query);
@@ -43,15 +43,15 @@ class DailyClosingController extends Controller
         $query = DB::table('view_closure_pre_insert')
         ->selectRaw(
             'date_time,
-            view_closure_pre_insert.article_id,
-            articles.int_cod,
-            articles.name,
+            view_closure_pre_insert.article_warehouse_id,
+            article_warehouse.int_cod,
+            article_warehouse.name,
             quantity_input,
             quantity_output,
             quantity_reverse_input,
             quantity_reverse_output'
         )
-        ->join('articles', 'view_closure_pre_insert.article_id', '=', 'articles.id')
+        ->join('article_warehouse', 'view_closure_pre_insert.article_warehouse_id', '=', 'article_warehouse.id')
         ->get();
 
         return response()->json($query);

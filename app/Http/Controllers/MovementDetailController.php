@@ -27,8 +27,8 @@ class MovementDetailController extends Controller
         //return response()->json($request, 201); $request->movementId
         
         $movementDetails = MovementDetail::
-          select("articles.*", "movement_details.*")
-          ->join('articles', 'movement_details.article_id', '=', 'articles.id')        
+          select("article_warehouse.*", "movement_details.*")
+          ->join('article_warehouse', 'movement_details.article_warehouse_id', '=', 'article_warehouse.id')        
           ->where('movement_id', $request->movementId)->get();
         
         return response()->json($movementDetails);
@@ -59,8 +59,8 @@ class MovementDetailController extends Controller
             ->first();
         
         if ($movement && $movement->id) {
-            $movementDetails = MovementDetail::select("articles.*", "movement_details.*")
-                ->join('articles', 'movement_details.article_id', '=', 'articles.id')        
+            $movementDetails = MovementDetail::select("article_warehouse.*", "movement_details.*")
+                ->join('article_warehouse', 'movement_details.article_warehouse_id', '=', 'article_warehouse.id')        
                 ->where('movement_id', $movement->id)
                 ->get();
 

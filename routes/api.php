@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Actions\ExistenceAction;
 use App\Http\Controllers\{
-    ArticleController,
+    ArticleWarehouseController,
     AuthController,
     AuthMenuController,
     UserController,
@@ -101,7 +101,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}', [WarehouseController::class,'destroy']);
     });
     Route::get('/warehouses-help', [WarehouseController::class, 'help']);
-    Route::get('/articles-search', [ArticleController::class,'search']);
+    Route::get('/articles-search', [ArticleWarehouseController::class,'search']);
 });
 
 Route::prefix('error')->group(function () {

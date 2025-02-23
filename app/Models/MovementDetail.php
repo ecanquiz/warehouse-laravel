@@ -15,7 +15,7 @@ class MovementDetail extends Model
     protected $fillable = [
         //'id',     
         'movement_id',     
-        'article_id',     
+        'article_warehouse_id',     
         'quantity',     
         'close',     
         'user_insert_id',    

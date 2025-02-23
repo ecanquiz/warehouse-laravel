@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MenuSeeder::class,
             WarehouseSeeder::class,
-            ArticleSeeder::class,
+            ArticleWarehouseSeeder::class,
             MovementTableSeeder::class,
             MovementDetailTableSeeder::class,
             SupportTypesSeeder::class        

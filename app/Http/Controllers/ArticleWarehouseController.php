@@ -5,52 +5,52 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\{Request, JsonResponse};
 use Illuminate\Routing\Controller;
-use App\Http\Resources\ArticleResource;
-/*use App\Http\Requests\Article\{
-    StoreArticleRequest,
-    UpdateArticleRequest
+use App\Http\Resources\ArticleWarehouseResource;
+/*use App\Http\Requests\ArticleWarehouse\{
+    StoreArticleWarehouseRequest,
+    UpdateArticleWarehouseRequest
 };*/
-/*use App\Http\Services\Article\{
-    StoreArticleService,
-    IndexArticleService,
-    UpdateArticleService
+/*use App\Http\Services\ArticleWarehouse\{
+    StoreArticleWarehouseService,
+    IndexArticleWarehouseService,
+    UpdateArticleWarehouseService
 };*/
-use App\Models\Article;
+use App\Models\ArticleWarehouse;
 //use Modules\Product\Entities\Presentation;
 use Illuminate\Support\Facades\DB;
 
-class ArticleController extends Controller
+class ArticleWarehouseController extends Controller
 {
     /*
      * Display a listing of the resource.
      */
     //public function index(Request $request): JsonResponse
     //{
-    //    return IndexArticleService::execute($request);
+    //    return IndexArticleWarehouseService::execute($request);
     //}
 
     /**
      * Store a newly created resource in storage.
      */ 
-    //public function store(StoreArticleRequest $request): JsonResponse
+    //public function store(StoreArticleWarehouseRequest $request): JsonResponse
     //{
-    //    return StoreArticleService::execute($request);
+    //    return StoreArticleWarehouseService::execute($request);
     //}
 
     /**
      * Display the specified resource.
     */
-    //public function show(Article $article): ArticleResource | JsonResponse
+    //public function show(ArticleWarehouse $articleWarehouse): ArticleWarehouseResource | JsonResponse
     //{
-    //    return new ArticleResource($article);
+    //    return new ArticleWarehouseResource($articleWarehouse);
     //}
 
     /**
      * Update the specified resource in storage.
      */     
-    //public function update(UpdateArticleRequest $request, Article $article): JsonResponse
+    //public function update(UpdateArticleWarehouseRequest $request, ArticleWarehouse $articleWarehouse): JsonResponse
     //{
-    //    return UpdateArticleService::execute($request, $article);
+    //    return UpdateArticleWarehouseService::execute($request, $articleWarehouse);
     //}
 
     /**
@@ -58,7 +58,7 @@ class ArticleController extends Controller
      */
     //public function destroy(Request $request): JsonResponse
     //{      
-    //    Article::destroy($request->id);
+    //    ArticleWarehouse::destroy($request->id);
     //    return response()->json(204);
     //}
 
@@ -67,27 +67,27 @@ class ArticleController extends Controller
      */
     //public function help(): JsonResponse
     //{
-    //    return response()->json(Article::all());
+    //    return response()->json(ArticleWarehouse::all());
     //}
 
     public function search(Request $request): JsonResponse
     {
         // Initialize query
-        $query = Article::query()
+        $query = ArticleWarehouse::query()
             ->selectRaw("
-                    articles.id,
-                    articles.int_cod,
-                    articles.name,
-                    articles.price,
-                    articles.stock_min,
-                    articles.stock_max,
-                    articles.status,
-                    articles.photo,
-                    articles.warehouse_uuid,
+                    article_warehouse.id,
+                    article_warehouse.int_cod,
+                    article_warehouse.name,
+                    article_warehouse.price,
+                    article_warehouse.stock_min,
+                    article_warehouse.stock_max,
+                    article_warehouse.status,
+                    article_warehouse.photo,
+                    article_warehouse.warehouse_uuid,
                     warehouses.name as warehouse,
                     CASE WHEN view_stock_movement.total IS NULL THEN 0 ELSE view_stock_movement.total END as stock_existence")
-            ->leftjoin("warehouses"  , "articles.warehouse_uuid"  , "=", "warehouses.uuid")
-            ->leftjoin("view_stock_movement"  , "articles.id"  , "=", "view_stock_movement.article_id");
+            ->leftjoin("warehouses"  , "article_warehouse.warehouse_uuid"  , "=", "warehouses.uuid")
+            ->leftjoin("view_stock_movement"  , "article_warehouse.id"  , "=", "view_stock_movement.article_warehouse_id");
 ;
 
         // search 
@@ -95,8 +95,8 @@ class ArticleController extends Controller
         if ($search) {
             $query->where(function ($query) use ($search) {
                 $query
-                    ->where  (DB::raw("UPPER(articles.int_cod)"        ), "like", "%$search%")
-                    ->orWhere(DB::raw("UPPER(articles.name)"  ), "like", "%$search%")
+                    ->where  (DB::raw("UPPER(article_warehouse.int_cod)"        ), "like", "%$search%")
+                    ->orWhere(DB::raw("UPPER(article_warehouse.name)"  ), "like", "%$search%")
                     ->orWhere(DB::raw("UPPER(warehouses.name)"  ), "like", "%$search%");
             });
         }
@@ -106,7 +106,7 @@ class ArticleController extends Controller
         $direction = $request->input("direction") === "desc" ? "desc" : "asc";        
         ($sort)
             ? $query->orderBy($sort, $direction) 
-                : $query->orderBy("articles.id", "asc");
+                : $query->orderBy("article_warehouse.id", "asc");
 
         // get paginated results 
         $presentations = $query
