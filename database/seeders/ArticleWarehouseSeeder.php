@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Article;
+use App\Models\ArticleWarehouse;
 
-class ArticleSeeder extends Seeder
+class ArticleWarehouseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,7 @@ class ArticleSeeder extends Seeder
     {
         Model::unguard();
         
-            Article::factory()
+        ArticleWarehouse::factory()
                 ->count(10)
                 ->sequence(
                     ['article_id' => 1],

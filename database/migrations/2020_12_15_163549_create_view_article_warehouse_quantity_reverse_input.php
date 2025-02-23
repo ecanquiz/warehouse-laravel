@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateViewArticleQuantityInput extends Migration
+class CreateViewArticleWarehouseQuantityReverseInput extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,16 @@ class CreateViewArticleQuantityInput extends Migration
     public function up()
     {
         DB::unprepared("
-CREATE OR REPLACE VIEW public.view_article_quantity_input
+CREATE OR REPLACE VIEW public.view_article_warehouse_quantity_reverse_input
  AS
- SELECT a.article_id,
+ SELECT a.article_warehouse_id,
     sum(a.quantity) AS quantity
    FROM movement_details a
      JOIN movements b ON a.movement_id = b.id AND b.close IS NULL
-  WHERE b.type_id = 1
-  GROUP BY a.article_id;
+  WHERE b.type_id = 3
+  GROUP BY a.article_warehouse_id;
 
-ALTER TABLE public.view_article_quantity_input
+ALTER TABLE public.view_article_warehouse_quantity_reverse_input
     OWNER TO postgres;        
         ");
     }
@@ -35,6 +35,6 @@ ALTER TABLE public.view_article_quantity_input
      */
     public function down()
     {
-        DB::unprepared("DROP VIEW public.view_article_quantity_input;");
+        DB::unprepared("DROP VIEW public.view_article_warehouse_quantity_reverse_input;");
     }
 }

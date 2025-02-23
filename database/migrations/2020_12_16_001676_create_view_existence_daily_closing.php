@@ -15,7 +15,7 @@ class CreateViewExistenceDailyClosing extends Migration
     {
         DB::unprepared("
 CREATE VIEW public.view_existence_daily_closing AS
- SELECT a.article_id,
+ SELECT a.article_warehouse_id,
         CASE
             WHEN (a.quantity_input IS NULL) THEN 0
             ELSE a.quantity_input

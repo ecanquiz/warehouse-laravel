@@ -16,7 +16,7 @@ class CreateViewStockMovement extends Migration
         DB::unprepared("
 CREATE OR REPLACE VIEW public.view_stock_movement
  AS
- SELECT DISTINCT a.article_id,
+ SELECT DISTINCT a.article_warehouse_id,
         CASE
             WHEN i.quantity IS NULL THEN 0::bigint
             ELSE i.quantity
@@ -36,7 +36,7 @@ CREATE OR REPLACE VIEW public.view_stock_movement
     COALESCE(i.quantity, 0::bigint) - COALESCE(ri.quantity, 0::bigint) - (COALESCE(o.quantity, 0::bigint) - COALESCE(ro.quantity, 0::bigint)) AS total
    FROM ( SELECT movement_details.id,
             --movement_details.movement_id,
-            movement_details.article_id,
+            movement_details.article_warehouse_id,
             --movement_details.quantity,
             movement_details.close --,
             --movement_details.id_user_insert,
@@ -44,18 +44,18 @@ CREATE OR REPLACE VIEW public.view_stock_movement
             --movement_details.created_at,
             --movement_details.updated_at
            FROM movement_details) a
-     LEFT JOIN ( SELECT view_article_quantity_input.article_id,
-            view_article_quantity_input.quantity
-           FROM view_article_quantity_input) i ON a.article_id = i.article_id
-     LEFT JOIN ( SELECT view_article_quantity_output.article_id,
-            view_article_quantity_output.quantity
-           FROM view_article_quantity_output) o ON a.article_id = o.article_id
-     LEFT JOIN ( SELECT view_article_quantity_reverse_input.article_id,
-            view_article_quantity_reverse_input.quantity
-           FROM view_article_quantity_reverse_input) ri ON a.article_id = ri.article_id
-     LEFT JOIN ( SELECT view_article_quantity_reverse_output.article_id,
-            view_article_quantity_reverse_output.quantity
-           FROM view_article_quantity_reverse_output) ro ON a.article_id = ro.article_id
+     LEFT JOIN ( SELECT view_article_warehouse_quantity_input.article_warehouse_id,
+            view_article_warehouse_quantity_input.quantity
+           FROM view_article_warehouse_quantity_input) i ON a.article_warehouse_id = i.article_warehouse_id
+     LEFT JOIN ( SELECT view_article_warehouse_quantity_output.article_warehouse_id,
+            view_article_warehouse_quantity_output.quantity
+           FROM view_article_warehouse_quantity_output) o ON a.article_warehouse_id = o.article_warehouse_id
+     LEFT JOIN ( SELECT view_article_warehouse_quantity_reverse_input.article_warehouse_id,
+            view_article_warehouse_quantity_reverse_input.quantity
+           FROM view_article_warehouse_quantity_reverse_input) ri ON a.article_warehouse_id = ri.article_warehouse_id
+     LEFT JOIN ( SELECT view_article_warehouse_quantity_reverse_output.article_warehouse_id,
+            view_article_warehouse_quantity_reverse_output.quantity
+           FROM view_article_warehouse_quantity_reverse_output) ro ON a.article_warehouse_id = ro.article_warehouse_id
   WHERE a.close IS NULL;
 
 ALTER TABLE public.view_stock_movement

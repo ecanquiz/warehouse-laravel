@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateViewClousureMovDateTimeArticle extends Migration
+class CreateViewClousureMovDateTimeArticleWarehouse extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,15 @@ class CreateViewClousureMovDateTimeArticle extends Migration
     public function up()
     {
         DB::unprepared("
- CREATE VIEW public.view_clousure_mov_date_time_article AS
+ CREATE VIEW public.view_clousure_mov_date_time_article_warehouse AS
  SELECT DISTINCT b.date_time,
-    a.article_id
+    a.article_warehouse_id
    FROM (public.movement_details a
      LEFT JOIN public.movements b ON ((a.movement_id = b.id)))
   WHERE ((a.close IS NULL) AND (b.close IS NULL))
-  ORDER BY b.date_time, a.article_id;
+  ORDER BY b.date_time, a.article_warehouse_id;
 
-ALTER TABLE public.view_clousure_mov_date_time_article
+ALTER TABLE public.view_clousure_mov_date_time_article_warehouse
     OWNER TO postgres;   
         ");
     }
@@ -34,6 +34,6 @@ ALTER TABLE public.view_clousure_mov_date_time_article
      */
     public function down()
     {
-        DB::unprepared("DROP VIEW public.view_clousure_mov_date_time_article;");
+        DB::unprepared("DROP VIEW public.view_clousure_mov_date_time_article_warehouse;");
     }
 }

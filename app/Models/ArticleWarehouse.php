@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
-use Database\Factories\ArticleFactory;
+use Database\Factories\ArticleWarehouseFactory;
 
-class Article extends Model
+class ArticleWarehouse extends Model
 {
     use HasFactory, SoftDeletes;
 
-    //protected $connection = 'pgsql_article';
+    protected $table = 'article_warehouse';
 
     protected $fillable = [
         'id',     
@@ -30,14 +30,8 @@ class Article extends Model
 
     protected $casts = [ /* 'field_name' => 'field_type' */ ];
     
-        
-   //public function articleDetails()
-   // {        
-   //     return $this->hasMany(\App\Models\ArticleDetail::class);
-   // }
-    
     protected static function newFactory()
     {
-        return ArticleFactory::new();
+        return ArticleWarehouseFactory::new();
     }
 }

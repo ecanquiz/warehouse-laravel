@@ -15,7 +15,7 @@ class CreateCloseDaysTable extends Migration
     {
         Schema::create('close_days', function (Blueprint $table) {
             $table->id();
-            $table->integer('article_id');
+            $table->integer('article_warehouse_id');
             $table->integer('accumulated')->default(0);
             $table->integer('quantity_input')->default(0);
             $table->integer('quantity_output')->default(0);
