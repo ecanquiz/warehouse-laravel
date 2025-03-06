@@ -17,7 +17,7 @@ class WarehouseResource extends JsonResource
             'code' => $this->code,
             'name' => $this->name,
             'description' => $this->description,
-            
+            'categories' => $this->categories            
         ];
     }
 }
