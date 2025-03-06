@@ -14,7 +14,7 @@ class UpdateWarehouseService
         // $warehouse->uuid = $request->uuid;
         $warehouse->name = $request->name;
         $warehouse->description = $request->description;
-        
+        $warehouse->categories = $request->categories;
         $warehouse->save();
 
         return response()->json([

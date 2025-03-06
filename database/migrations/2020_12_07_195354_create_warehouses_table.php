@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('code', 3);
             $table->string('name');
             $table->text('description');            
+            $table->jsonb('categories')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
