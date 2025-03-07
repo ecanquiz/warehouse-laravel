@@ -16,13 +16,14 @@ class StoreWarehouseService
         $warehouse->uuid = (string)Str::uuid();
         $warehouse->name = $request->name;
         $warehouse->description = $request->description;
+        $warehouse->categories = json_encode($request->categories);
         
         $warehouse->save();
 
         $warehouse->refresh();
 
         return response()->json([
-            "message" => "New record created successfully", 
+            "message" => "Nuevo registro creado exitosamente", 
             "id" => $warehouse->id
         ], 201);
   }

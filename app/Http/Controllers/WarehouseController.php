@@ -67,4 +67,27 @@ class WarehouseController extends Controller
     {
         return response()->json(Warehouse::all());
     }
+
+    public function loadArticles(Request $request, Warehouse $warehouse)
+    {
+        /*\App\Models\ArticleWarehouse::factory()
+        ->count(10)
+        ->sequence(
+            ['article_id' => 1],
+            ['article_id' => 2],
+            ['article_id' => 3],
+            ['article_id' => 4],
+            ['article_id' => 5],
+            ['article_id' => 6],
+            ['article_id' => 7],
+            ['article_id' => 8],
+            ['article_id' => 9],
+            ['article_id' => 10]
+        )
+        ->create();*/
+
+        return response()->json(['req'=>$request->categories, 'alm'=>$warehouse]);
+    }
+
+    
 }

@@ -14,11 +14,13 @@ class UpdateWarehouseService
         // $warehouse->uuid = $request->uuid;
         $warehouse->name = $request->name;
         $warehouse->description = $request->description;
-        $warehouse->categories = $request->categories;
+        $warehouse->categories = json_encode($request->categories);
+
+
         $warehouse->save();
 
         return response()->json([
-            "message"=> "Record updated successfully"
+            "message"=> "Registro actualizado exitosamente"
         ], 200);      
     }
 }
