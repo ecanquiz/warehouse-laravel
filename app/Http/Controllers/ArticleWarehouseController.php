@@ -78,7 +78,6 @@ class ArticleWarehouseController extends Controller
                     article_warehouse.id,
                     article_warehouse.int_cod,
                     article_warehouse.name,
-                    article_warehouse.price,
                     article_warehouse.stock_min,
                     article_warehouse.stock_max,
                     article_warehouse.status,
