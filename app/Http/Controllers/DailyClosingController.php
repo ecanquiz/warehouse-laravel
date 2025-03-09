@@ -44,6 +44,8 @@ class DailyClosingController extends Controller
         ->selectRaw(
             'date_time,
             view_closure_pre_insert.article_warehouse_id,
+            article_warehouse.warehouse_code,
+            warehouses.name as warehouse_name,
             article_warehouse.int_cod,
             article_warehouse.name,
             quantity_input,
@@ -52,6 +54,7 @@ class DailyClosingController extends Controller
             quantity_reverse_output'
         )
         ->join('article_warehouse', 'view_closure_pre_insert.article_warehouse_id', '=', 'article_warehouse.id')
+        ->join('warehouses', 'article_warehouse.warehouse_uuid', '=', 'warehouses.uuid')
         ->get();
 
         return response()->json($query);

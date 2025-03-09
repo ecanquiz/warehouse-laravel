@@ -20,6 +20,7 @@ CREATE OR REPLACE VIEW public.view_stocks_by_accumulated_plus_unclosed_movements
     a.int_cod,
     a.name,
 	d.name as warehouse,
+    a.warehouse_code,
     COALESCE(b.total, 0::bigint) AS accumulated,
     COALESCE(c.inputs, 0::numeric) AS inputs,
     COALESCE(c.outputs, 0::numeric) AS outputs,
