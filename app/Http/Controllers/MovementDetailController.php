@@ -27,8 +27,9 @@ class MovementDetailController extends Controller
         //return response()->json($request, 201); $request->movementId
         
         $movementDetails = MovementDetail::
-          select("article_warehouse.*", "movement_details.*")
-          ->join('article_warehouse', 'movement_details.article_warehouse_id', '=', 'article_warehouse.id')        
+          select("article_warehouse.*", "movement_details.*", "warehouses.name as warehouse_name")
+          ->join('article_warehouse', 'movement_details.article_warehouse_id', '=', 'article_warehouse.id')
+          ->join('warehouses', 'article_warehouse.warehouse_uuid', '=', 'warehouses.uuid')
           ->where('movement_id', $request->movementId)->get();
         
         return response()->json($movementDetails);
