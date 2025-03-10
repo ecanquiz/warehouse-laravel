@@ -17,10 +17,10 @@ class CreateViewStocksByAccumulatedPlusUnclosedMovements extends Migration
 CREATE OR REPLACE VIEW public.view_stocks_by_accumulated_plus_unclosed_movements
  AS
  SELECT a.id,
-    a.int_cod,
-    a.name,
-	d.name as warehouse,
-    a.warehouse_code,
+    --a.int_cod,
+    --a.name,
+    d.code as warehouse_code,
+	d.name as warehouse_name,
     COALESCE(b.total, 0::bigint) AS accumulated,
     COALESCE(c.inputs, 0::numeric) AS inputs,
     COALESCE(c.outputs, 0::numeric) AS outputs,
