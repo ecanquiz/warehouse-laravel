@@ -22,8 +22,8 @@ class DailyClosingController extends Controller
         ->selectRaw(
             'close,
             close_days.article_warehouse_id,
-            article_warehouse.int_cod,
-            article_warehouse.name,
+            warehouses.code as warehouse_code,
+            warehouses.name as warehouse_name,
             sum(accumulated) as accumulated,
             sum(quantity_input) as quantity_input, 
             sum(quantity_output) as quantity_output, 
@@ -31,11 +31,22 @@ class DailyClosingController extends Controller
             sum(quantity_reverse_output) as quantity_reverse_output'
         )
         ->join('article_warehouse', 'close_days.article_warehouse_id', '=', 'article_warehouse.id')
+        ->join('warehouses', 'article_warehouse.warehouse_uuid', '=', 'warehouses.uuid')
         ->where('close', $request->close)
-        ->groupBy('close', 'close_days.article_warehouse_id', 'article_warehouse.int_cod', 'article_warehouse.name')
+        ->groupBy('close', 'close_days.article_warehouse_id', 'warehouses.code', 'warehouses.name')
         ->get();
 
-        return response()->json($query);
+        $rows = json_decode(json_encode($query), true); // to array 
+
+        // add foreign fields to articles table
+        foreach ($rows as $key => $value) {
+            $article = DB::connection('pgsql_article')->table('articles')->find($value["article_warehouse_id"]);
+            $rows[$key]['int_cod'] = $article->int_cod;
+            $rows[$key]['name'] = $article->name;
+            $rows[$key]['description'] = $article->description;
+        }
+
+        return response()->json($rows);
     }
 
     public function getPreDailyClosing(): JsonResponse
@@ -44,10 +55,8 @@ class DailyClosingController extends Controller
         ->selectRaw(
             'date_time,
             view_closure_pre_insert.article_warehouse_id,
-            article_warehouse.warehouse_code,
+            warehouses.code as warehouse_code,
             warehouses.name as warehouse_name,
-            article_warehouse.int_cod,
-            article_warehouse.name,
             quantity_input,
             quantity_output,
             quantity_reverse_input,
@@ -55,9 +64,20 @@ class DailyClosingController extends Controller
         )
         ->join('article_warehouse', 'view_closure_pre_insert.article_warehouse_id', '=', 'article_warehouse.id')
         ->join('warehouses', 'article_warehouse.warehouse_uuid', '=', 'warehouses.uuid')
+        ->orderBy('date_time')
         ->get();
 
-        return response()->json($query);
+        $rows = json_decode(json_encode($query), true); // to array 
+
+        // add foreign fields to articles table
+        foreach ($rows as $key => $value) {
+            $article = DB::connection('pgsql_article')->table('articles')->find($value["article_warehouse_id"]);
+            $rows[$key]['int_cod'] = $article->int_cod;
+            $rows[$key]['name'] = $article->name;
+            $rows[$key]['description'] = $article->description;
+        }
+
+        return response()->json($rows);
 
     }
 
