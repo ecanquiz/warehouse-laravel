@@ -6,18 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\{Movement, MovementDetail};
 use Illuminate\Support\Facades\DB;
-
-//use Modules\Article\Repositories\ArticleDetailRepository;
-//use Modules\Article\Http\Requests\ArticleDetail\{
-//    StoreArticleDetailRequest,
-//    UpdateArticleDetailRequest    
-//};
-//use Modules\Article\Http\Services\ArticleDetail\{
-//    StoreArticleDetailService,
-//    UpdateArticleDetailService
-//}; 
+use App\Models\{Movement, MovementDetail};
+use App\Repositories\Article\ArticleRepository;
 
 class MovementDetailController extends Controller
 {
@@ -38,13 +29,7 @@ class MovementDetailController extends Controller
         ->join('warehouses', 'article_warehouse.warehouse_uuid', '=', 'warehouses.uuid')
         ->where('movement_id', $request->movementId)->get();
 
-        // add foreign fields to articles table
-        foreach ($movementDetails as $key => $value) {
-            $article = DB::connection('pgsql_article')->table('articles')->find($value["article_id"]);
-            $movementDetails[$key]['int_cod'] = $article->int_cod;
-            $movementDetails[$key]['name'] = $article->name;
-            $movementDetails[$key]['description'] = $article->description;
-        }
+        $movementDetails = ArticleRepository::addForeignFields($movementDetails);
         
         return response()->json($movementDetails);
         //return MovementDetailRepository::getAllByMovement($request);
@@ -75,43 +60,22 @@ class MovementDetailController extends Controller
         
         if ($movement && $movement->id) {
             $movementDetails = MovementDetail::select(
-                "article_warehouse.*", "movement_details.*"
+                "article_warehouse.*",
+                "movement_details.*",
+                "warehouses.name as warehouse_name",
+                "warehouses.code as warehouse_code"
             )
-            ->join('article_warehouse', 'movement_details.article_warehouse_id', '=', 'article_warehouse.id')        
+            ->join('article_warehouse', 'movement_details.article_warehouse_id', '=', 'article_warehouse.id')
+            ->join('warehouses', 'article_warehouse.warehouse_uuid', '=', 'warehouses.uuid')      
             ->where('movement_id', $movement->id)
             ->get();
+
+            $movementDetails = ArticleRepository::addForeignFields($movementDetails);
 
             return response()->json($movementDetails);
         }
 
         return response()->json([]);        
-    }    
-
-    /**
-     * Store a newly created resource in storage.
-     */    
-    //public function store(StoreArticleDetailRequest $request): JsonResponse
-    //public function store(Request $request): JsonResponse
-    //{
-    //    //return  response()->json($request, 201);
-    //    return StoreArticleDetailService::execute($request);
-    //}
-    
-    /**
-     * Update the specified resource in storage.
-     */
-    //public function update(UpdateArticleDetailRequest $request, ArticleDetail $article_detail): JsonResponse
-    //{
-    //    return UpdateArticleDetailService::execute($request, $article_detail);
-    //}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    //public function destroy(Request $request): JsonResponse
-    //{
-    //    ArticleDetail::destroy($request->id);
-
-    //    return response()->json(204);            
-    //}
+    }
+ 
 }

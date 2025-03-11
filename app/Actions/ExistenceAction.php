@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use Illuminate\Http\{Request, JsonResponse};
 use Illuminate\Support\Facades\DB;
-//use App\Models\Existence;
+use App\Repositories\Article\ArticleRepository;
 
 class ExistenceAction
 {
@@ -40,15 +40,8 @@ class ExistenceAction
             ->paginate(5)
             ->appends(request()->query());
 
-        $rows = json_decode(json_encode($existence), true); // to array 
-  
-        // add foreign fields to articles table
-        foreach ($rows['data'] as $key => $value) {
-            $article = DB::connection('pgsql_article')->table('articles')->find($value['id']);
-            $rows['data'][$key]['int_cod'] = $article->int_cod;
-            $rows['data'][$key]['name'] = $article->name;
-            $rows['data'][$key]['description'] = $article->description;
-        }
+        $rows = json_decode(json_encode($existence), true); // to array
+        $rows['data'] = ArticleRepository::addForeignFields($rows['data']);
             
         return response()->json([
             "rows" => $rows,
