@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\{Request, JsonResponse};
 use Illuminate\Routing\Controller;
-use App\Models\ArticleWarehouse;
 use Illuminate\Support\Facades\DB;
+use App\Models\ArticleWarehouse;
+use App\Repositories\Article\ArticleRepository;
 
 class ArticleWarehouseController extends Controller
 {
@@ -60,15 +61,9 @@ class ArticleWarehouseController extends Controller
         // get paginated results 
         $articleWarehouse = $query
             ->paginate(5)
-            ->appends(request()->query()); 
+            ->appends(request()->query());
 
-        // add foreign fields to articles table
-        foreach ($articleWarehouse as $key => $value) {
-            $article = DB::connection('pgsql_article')->table('articles')->find($value["article_id"]);
-            $articleWarehouse[$key]['int_cod'] = $article->int_cod;
-            $articleWarehouse[$key]['name'] = $article->name;
-            $articleWarehouse[$key]['description'] = $article->description;
-        }
+        $articleWarehouse = ArticleRepository::addForeignFields($articleWarehouse);
 
         return response()->json([
             "rows" => $articleWarehouse,

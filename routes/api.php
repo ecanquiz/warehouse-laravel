@@ -102,9 +102,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::get('/warehouses-help', [WarehouseController::class, 'help']);
     Route::get('/articles-warehouse-search', [ArticleWarehouseController::class,'search']);
-    Route::put('/warehouses-load-articles/{warehouse}', [WarehouseController::class, 'loadArticles']);
-
-    
+    Route::put('/warehouses-load-articles/{warehouse}', [WarehouseController::class, 'loadArticles']);    
 });
 
 Route::prefix('error')->group(function () {
