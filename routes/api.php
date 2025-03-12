@@ -101,6 +101,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}', [WarehouseController::class,'destroy']);
     });
     Route::get('/warehouses-help', [WarehouseController::class, 'help']);
+    Route::get('/articles-warehouse', [ArticleWarehouseController::class,'index']);
     Route::get('/articles-warehouse-search', [ArticleWarehouseController::class,'search']);
     Route::put('/warehouses-load-articles/{warehouse}', [WarehouseController::class, 'loadArticles']);    
 });
