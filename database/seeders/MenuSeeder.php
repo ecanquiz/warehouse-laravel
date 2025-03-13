@@ -96,48 +96,56 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([ // id 11
-            "title" => "Admin",
+            "title" => "Almacén",
             "menu_id" => null,
             "path" => "#",
-            "icon" => "printer",
-            "sort" => 4
+            "icon" => "menus.svg",
+            "sort" => 1
         ]);
 
         Menu::create([ // id 12
             "title" => "Almacenes",
             "menu_id" => 11,
             "path" => "warehouses",
-            "icon" => "menus.svg",
+            "icon" => "categories.svg",
             "sort" => 1
         ]);
         
         Menu::create([ // id 13
-            "title" => "Artículos",
+            "title" => "Artículos por",
             "menu_id" => 11,
-            "path" => "articles",
+            "path" => "article-warehouse",
             "icon" => "articles.svg",
             "sort" => 2
-        ]);        
-        
+        ]); 
+
         Menu::create([ // id 14
+            "title" => "Admin",
+            "menu_id" => null,
+            "path" => "#",
+            "icon" => "printer",
+            "sort" => 4
+        ]);       
+        
+        Menu::create([ // id 15
             "title" => "Usuarios",
-            "menu_id" => 11,
+            "menu_id" => 14,
             "path" => "users",
             "icon" => "user.svg",
             "sort" => 7
         ]);
 
-        Menu::create([ // id 15
+        Menu::create([ // id 16
             "title" => "Roles",
-            "menu_id" => 11,
+            "menu_id" => 14,
             "path" => "roles",
             "icon" => "users.svg",
             "sort" => 6
         ]);
 
-        Menu::create([ // id 16
+        Menu::create([ // id 17
             "title" => "Menus",
-            "menu_id" => 11,
+            "menu_id" => 14,
             "path" => "menus",
             "icon" => "menus.svg",
             "sort" => 1

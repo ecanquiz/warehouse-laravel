@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\ArticleWarehouseFactory;
+use App\Models\Warehouse;
 
 class ArticleWarehouse extends Model
 {
@@ -15,20 +16,25 @@ class ArticleWarehouse extends Model
 
     protected $fillable = [
         'id',     
-        'int_cod',     
-        'name',     
-        'price',     
+        'article_id',     
+        'warehouse_uuid',     
         'stock_min',     
         'stock_max',     
         'status',     
-        'photo',     
         'id_user_insert',     
-        'id_user_update'     
+        'id_user_update' 
     ];
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $casts = [ /* 'field_name' => 'field_type' */ ];
+
+    //protected $with = ['warehouse'];
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    } 
     
     protected static function newFactory()
     {

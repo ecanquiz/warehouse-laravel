@@ -101,9 +101,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}', [WarehouseController::class,'destroy']);
     });
     Route::get('/warehouses-help', [WarehouseController::class, 'help']);
-    Route::get('/articles-warehouse', [ArticleWarehouseController::class,'index']);
+    // Route::get('/articles-warehouse', [ArticleWarehouseController::class,'index']);
     Route::get('/articles-warehouse-search', [ArticleWarehouseController::class,'search']);
-    Route::put('/warehouses-load-articles/{warehouse}', [WarehouseController::class, 'loadArticles']);    
+    Route::put('/warehouses-load-articles/{warehouse}', [WarehouseController::class, 'loadArticles']);
+    
+    
+    Route::prefix('article-warehouse')->group(function () {
+        Route::get('/', [ArticleWarehouseController::class, 'index']);
+        Route::get('/{article_warehouse}', [ArticleWarehouseController::class, 'show']);
+        Route::post('/', [ArticleWarehouseController::class, 'store']);
+        Route::put('/{article_warehouse}', [ArticleWarehouseController::class, 'update']);
+        Route::delete('/{id}', [ArticleWarehouseController::class,'destroy']);
+    });
+    Route::get('/article_warehouse-help', [ArticleWarehouseController::class, 'help']);
+
+
 });
 
 Route::prefix('error')->group(function () {
