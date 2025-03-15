@@ -6,6 +6,7 @@ use Illuminate\Http\{
     Request,
     JsonResponse
 };
+use Illuminate\Support\Facades\DB;
 use App\Models\ArticleWarehouse;
 use App\Repositories\Article\ArticleRepository;
 
@@ -30,7 +31,8 @@ class IndexArticleWarehouseService
             warehouses.name as warehouse_name,
             CASE WHEN view_stock_movement.total IS NULL THEN 0 ELSE view_stock_movement.total END as stock_existence")
         ->leftjoin("warehouses"  , "article_warehouse.warehouse_uuid" , "=", "warehouses.uuid")
-        ->leftjoin("view_stock_movement"  , "article_warehouse.id" , "=", "view_stock_movement.article_warehouse_id");
+        ->leftjoin("view_stock_movement"  , "article_warehouse.id" , "=", "view_stock_movement.article_warehouse_id")
+        ->where('article_warehouse.warehouse_uuid', $request->input("uuid"));
 
         // search 
         $search = strtoupper($request->input("search"));
@@ -73,7 +75,8 @@ class IndexArticleWarehouseService
             "rows" => $articleWarehouse,
             "sort" => $request->query("sort"),
             "direction" => $request->query("direction"),
-            "search" => $request->query("search")
+            "search" => $request->query("search"),
+            "uuid" => $request->query("uuid")
         ]);
 
   }  
