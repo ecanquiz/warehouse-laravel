@@ -44,6 +44,14 @@ class WarehouseController extends Controller
     }
 
     /**
+     * Display the specified resource.
+    */
+    public function showByUuid($warehouseUuid): JsonResponse
+    {
+        return response()->json(Warehouse::where('uuid', $warehouseUuid)->first());
+    }
+
+    /**
      * Update the specified resource in storage.
      */     
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse): JsonResponse

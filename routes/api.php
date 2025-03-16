@@ -96,6 +96,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('warehouses')->group(function () {
         Route::get('/', [WarehouseController::class, 'index']);
         Route::get('/{warehouse}', [WarehouseController::class, 'show']);
+        Route::get('/{warehouse}/uuid', [WarehouseController::class, 'showByUuid']);
         Route::post('/', [WarehouseController::class, 'store']);
         Route::put('/{warehouse}', [WarehouseController::class, 'update']);
         Route::delete('/{id}', [WarehouseController::class,'destroy']);
