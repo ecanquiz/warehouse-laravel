@@ -17,7 +17,7 @@ class IndexArticleWarehouseService
    * Display a listing of the resource.
    */
   static public function execute(Request $request): JsonResponse
-  {     
+  {
         // Initialize query        
         $query = ArticleWarehouse::query()
         ->selectRaw("
@@ -70,13 +70,19 @@ class IndexArticleWarehouseService
         
         $articleWarehouse = ArticleRepository::addForeignFields($articleWarehouse);
 
+        $articleIDs = ArticleWarehouse::select("article_warehouse.article_id")
+        ->where('article_warehouse.warehouse_uuid', $request->input("uuid"))
+        ->get()
+        ->pluck("article_id")
+        ->toArray();
             
         return response()->json([
             "rows" => $articleWarehouse,
             "sort" => $request->query("sort"),
             "direction" => $request->query("direction"),
             "search" => $request->query("search"),
-            "uuid" => $request->query("uuid")
+            "uuid" => $request->query("uuid"),
+            "article_ids" => json_encode($articleIDs)
         ]);
 
   }  
