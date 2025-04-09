@@ -31,7 +31,8 @@ class ArticleWarehouseController extends Controller
     /**
      * Store a newly created resource in storage.
      */ 
-    public function store(StoreArticleWarehouseRequest $request): JsonResponse
+//    public function store(StoreArticleWarehouseRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         return StoreArticleWarehouseService::execute($request);
     }
