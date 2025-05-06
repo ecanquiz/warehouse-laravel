@@ -136,7 +136,7 @@ Route::prefix('error')->group(function () {
     });*/
 });
 
-Route::get('/tests', function(){        
+Route::get('/sales-catalog', function(){        
     return response()->json([
         [
             "name" => "Plain Ol' Pineapple",
