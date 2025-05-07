@@ -17,6 +17,7 @@ use App\Http\Controllers\{
     DailyClosingController,
     WarehouseController
 };
+use App\Http\Middleware\ValidateSharedToken;
 
 
 /*Route::get('/user', function (Request $request) {
@@ -136,6 +137,7 @@ Route::prefix('error')->group(function () {
     });*/
 });
 
+Route::middleware([ValidateSharedToken::class])->group(function () {
 Route::get('/sales-catalog', function(){        
     return response()->json([
         [
@@ -188,4 +190,5 @@ Route::get('/sales-catalog', function(){
             "price"  => 321
         ]
     ]);
+});
 });
