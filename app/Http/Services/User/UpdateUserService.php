@@ -6,7 +6,6 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 
-
 class UpdateUserService
 {
     static public function execute(UpdateUserRequest $request, User $user) : JsonResponse

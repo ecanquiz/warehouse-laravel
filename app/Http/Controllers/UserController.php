@@ -16,8 +16,6 @@ use App\Http\Services\User\{
     UpdateUserService
 };
 
-
-
 class UserController extends Controller
 {
     /**

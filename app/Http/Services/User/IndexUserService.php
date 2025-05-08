@@ -11,11 +11,10 @@ use App\Models\User;
 
 class IndexUserService
 {
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     static public function execute(Request $request): JsonResponse
     {             
@@ -57,5 +56,4 @@ class IndexUserService
         // return UserResource::collection(User::paginate(5));
         // return new UserCollection(User::paginate(5));
     }
-
 }
