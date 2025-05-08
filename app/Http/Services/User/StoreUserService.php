@@ -6,8 +6,7 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Models\User;
 
 class StoreUserService
-{
-  
+{  
     static public function execute(StoreUserRequest $request): \Illuminate\Http\JsonResponse
     {     
         $user = new User();
@@ -19,5 +18,4 @@ class StoreUserService
 
         return response()->json(["message"=> "Usuario creado"], 201);
     }
-
 }
